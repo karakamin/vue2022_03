@@ -1,12 +1,16 @@
 import { createApp } from "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.28/vue.esm-browser.min.js";
 
+let productModal = {};
+
 const app = createApp({
     data() {
         return {
             url: "https://vue3-course-api.hexschool.io/v2",
             path: "karakamin-hex",
             products:[],
-            oneProduct:[],
+            tmpProduct:{
+                imagesUrl:[],
+            },
         }
     },
     methods:{
@@ -39,10 +43,17 @@ const app = createApp({
                 alert("產品清單取得異常");
             })
         },
-        showDetails(item){
-            // 顯示單一產品資料
-            this.oneProduct = item; 
-        }
+        // showDetails(item){
+        //     // 顯示單一產品資料
+        //     this.oneProduct = item; 
+        // }
+        openModal() {
+            // 顯示 modal 視窗
+            productModal.show();
+        },
+        // addProduct() {
+
+        // }
     },
     created() {
         //存放token 只需要設定一次
@@ -56,6 +67,13 @@ const app = createApp({
 
         this.checkUser()
     },
+    mounted() {
+        // modal 視窗
+        productModal = new bootstrap.Modal(document.getElementById('productModal'), {
+            // 不能使用鍵盤操作
+            keyboard: false
+        });
+    }
 })
 
 app.mount("#app");
